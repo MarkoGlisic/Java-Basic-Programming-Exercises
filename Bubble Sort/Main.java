@@ -1,33 +1,31 @@
 package com.company;
 
-import com.sun.xml.internal.ws.util.StringUtils;
-
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
-    public enum smer {OPADAJUCI, RASTUCI};
+    public enum direction {DESCENDING, ASCENDING};
 
-    public static void sortiranjeNiza(double[] niz, smer s) {
-        int n = niz.length;
-        if (s == smer.RASTUCI) {
-            for (int i = 0; i < n-1; i++) {
-                for (int j = 0; j < n-1; j++) {
-                    if (niz[j] > niz[j+1]) {
-                        double privremeno = niz[j];
-                        niz[j] = niz [j+1];
-                        niz[j+1] = privremeno;
+    public static void sortiranjeNiza(double[] array, direction s) {
+        int length = array.length;
+        if (s == direction.ASCENDING) {
+            for (int i = 0; i < length-1; i++) {
+                for (int j = 0; j < length-1; j++) {
+                    if (array[j] > array[j+1]) {
+                        double temp = array[j];
+                        array[j] = array [j+1];
+                        array[j+1] = temp;
                     }
                 }
             }
-        } else if (s == smer.OPADAJUCI) {
-            for (int i = 0; i < n-1; i++) {
-                for (int j = 0; j < n-1; j++) {
-                    if (niz[j] < niz[j+1]) {
-                        double privremeno = niz[j];
-                        niz[j] = niz [j+1];
-                        niz[j+1] = privremeno;
+        } else if (s == direction.DESCENDING) {
+            for (int i = 0; i < length-1; i++) {
+                for (int j = 0; j < length-1; j++) {
+                    if (array[j] < array[j+1]) {
+                        double temp = array[j];
+                        array[j] = array [j+1];
+                        array[j+1] = temp;
                     }
                 }
             }
@@ -35,28 +33,24 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Unesite duzinu niza: ");
-        int n = s.nextInt();
-        double[] niz = new double[n];
+        System.out.print("Please enter the length of an array: ");
+        int arrayLength = scanner.nextInt();
+        double[] array = new double[arrayLength];
 
-        for (int i = 0; i < niz.length; i++) {
-            System.out.print("Unesite broj za niz: ");
-            niz[i] = s.nextInt();
+        for (int i = 0; i < array.length; i++) {
+            System.out.print("Enter the numbers: ");
+            array[i] = scanner.nextInt();
         }
 
+        sortiranjeNiza(array, direction.DESCENDING);
+        System.out.println("Given numbers in descending order: ");
+        System.out.println(Arrays.toString(array));
 
-        sortiranjeNiza(niz, smer.OPADAJUCI);
-        System.out.println("Navedeni niz sortiran opadajuce: ");
-        System.out.println(Arrays.toString(niz));
-
-        sortiranjeNiza(niz, smer.RASTUCI);
-        System.out.println("Navedeni niz sortiran rastuce: ");
-        System.out.println(Arrays.toString(niz));
-
-
-        
+        sortiranjeNiza(array, direction.ASCENDING);
+        System.out.println("Given numbers in ascending order: ");
+        System.out.println(Arrays.toString(array));
     }
 }
 
